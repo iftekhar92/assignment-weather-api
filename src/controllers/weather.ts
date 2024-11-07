@@ -3,9 +3,9 @@ import { Request, Response } from "express";
 import { fetchApi } from "../utils";
 const fetchLocation = async (req: Request, res: Response): Promise<any> => {
   try {
-    fetchApi(
-      `https://api.ipapi.com/api/check?access_key=${process.env.ACCESS_KEY}`
-    ).then((response) => {
+    const url = `https://api.ipapi.com/api/check?access_key=${process.env.ACCESS_KEY}`
+    console.log(`fetch location url: ${url}`)
+    fetchApi(url).then((response) => {
       return res.status(201).json(response);
     });
   } catch (error: unknown) {
@@ -21,9 +21,9 @@ const fetchWeather = async (req: Request, res: Response): Promise<any> => {
   try {
     const { latitude = "", longitude = "" } = req.headers;
     if (latitude && longitude) {
-      fetchApi(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${process.env.APP_ID}`
-      ).then((response) => {
+      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${process.env.APP_ID}`
+      console.log(`fetch weather url: ${url}`)
+      fetchApi(url).then((response) => {
         return res.status(201).json(response);
       });
     } else {
